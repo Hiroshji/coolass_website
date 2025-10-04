@@ -10,6 +10,7 @@ class WindowsDesktop {
     }
 
     init() {
+        this.setRandomBackground();
         this.setupDesktopIcons();
         this.setupWindowControls();
         this.setupTaskbar();
@@ -18,6 +19,28 @@ class WindowsDesktop {
 
         // Update time every second
         setInterval(() => this.updateTime(), 1000);
+    }
+
+    setRandomBackground() {
+        // Array of background image filenames
+        const backgrounds = [
+            'backgrounds/1.webp',
+            'backgrounds/2.webp',
+            'backgrounds/3.webp'
+        ];
+
+        // Pick a random background
+        const randomIndex = Math.floor(Math.random() * backgrounds.length);
+        const selectedBackground = backgrounds[randomIndex];
+
+        // Set the background on the desktop element
+        const desktop = document.querySelector('.desktop');
+        desktop.style.setProperty('background', `url('${selectedBackground}')`, 'important');
+        desktop.style.backgroundSize = 'cover';
+        desktop.style.backgroundPosition = 'center';
+        desktop.style.backgroundRepeat = 'no-repeat';
+
+        console.log('Background set to:', selectedBackground);
     }
 
     setupDesktopIcons() {

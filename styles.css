@@ -214,13 +214,20 @@ body {
 .window-tab:hover::after {
     opacity: 1;
     transform: scale(1);
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: transparent;
 }
 
 .window-tab::after:hover {
-    background: rgba(0, 0, 0, 0.08);
-    color: #202124;
-    border-color: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.05);
+    color: #5f6368;
+    border-color: transparent;
+}
+
+.window-tab::after:active {
+    background: rgba(0, 0, 0, 0.15);
+    color: #5f6368;
+    border-color: transparent;
+    transform: scale(0.95);
 }
 
 
@@ -246,7 +253,8 @@ body {
 }
 
 .window-btn:active {
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.15);
+    transform: scale(0.95);
 }
 
 .window-btn.close:hover {
