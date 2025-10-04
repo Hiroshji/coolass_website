@@ -202,6 +202,26 @@ class WindowsDesktop {
 
     setupWindowControls() {
         document.addEventListener('click', (e) => {
+            // First check if click is on the tab close button (::after pseudo-element)
+            const tab = e.target.closest('.window-tab');
+            if (tab && !e.target.closest('.window-controls')) {
+                const tabRect = tab.getBoundingClientRect();
+                const clickX = e.clientX - tabRect.left;
+
+                // Check if click is in the close button area (right 28px of the tab)
+                // Close button is 20px wide + 8px from right edge
+                if (clickX >= tabRect.width - 28) {
+                    const win = tab.closest('.window');
+                    if (win) {
+                        const windowId = win.id.replace('-window', '');
+                        this.closeWindow(windowId);
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                    }
+                }
+            }
+
             // Check if clicked on window controls area (any of the buttons)
             if (e.target.classList.contains('window-btn') || e.target.closest('.window-controls')) {
                 const window = e.target.closest('.window');
@@ -216,6 +236,7 @@ class WindowsDesktop {
 
     // Replace your old setupWindowDragging() with this inside the WindowsDesktop class
     setupWindowDragging() {
+
         // internal drag state
         this._dragState = {
             active: false,
